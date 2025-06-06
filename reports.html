@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reported Pollution - BlueGuardian</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🌊 Reported Pollution Cases</h1>
+  </header>
+
+  <main>
+    <ul id="report-list"></ul>
+
+    <a href="report.html" class="btn">➕ Submit Another Report</a>
+    <a href="index.html" class="btn">🏠 Home</a>
+  </main>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1954mCYtwiBaIQVvFpof9H3orCpuH820",
+      authDomain: "blueguardian-1ce8d.firebaseapp.com",
+      projectId: "blueguardian-1ce8d",
+      storageBucket: "blueguardian-1ce8d.appspot.com",
+      messagingSenderId: "30239727158",
+      appId: "1:30239727158:web:7fb22d8200e42ecfd04297",
+      measurementId: "G-E0C84BFFEC"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const reportList = document.getElementById("report-list");
+
+    db.collection("reports").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+      reportList.innerHTML = "";
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <strong>${data.name}</strong> reported <em>${data.type}</em><br>
+          📍 Location: ${data.location} <br>
+          🕒 ${new Date(data.timestamp.seconds * 1000).toLocaleString()}
+          <hr>
+        `;
+        reportList.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
