@@ -1,4 +1,66 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Pollution - BlueGuardian</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>📸 Report Marine Pollution</h1>
+  </header>
+
+  <main>
+    <form id="report-form">
+      <label for="name">Your Name:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="location">Location:</label><br>
+      <input type="text" id="location" name="location" placeholder="Beach, Port..." required><br><br>
+
+      <label for="type">Type of Pollution:</label><br>
+      <select id="type" name="type" required>
+        <option value="">--Select--</option>
+        <option value="Plastic Waste">Plastic Waste</option>
+        <option value="Oil Spill">Oil Spill</option>
+        <option value="Chemical Waste">Chemical Waste</option>
+        <option value="Other">Other</option>
+      </select><br><br>
+
+      <label for="image">Upload Image:</label><br>
+      <input type="file" id="image" name="image"><br><br>
+
+      <button type="submit" class="btn">🚀 Submit Report</button>
+    </form>
+
+    <a href="index.html" class="btn">🔙 Back to Home</a>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BlueGuardian Team</p>
+  </footer>
+
+  <!-- ✅ Firebase Scripts First -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <!-- ✅ Your Custom Script -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1954mCYtwiBaIQVvFpof9H3orCpuH820",
+      authDomain: "blueguardian-1ce8d.firebaseapp.com",
+      projectId: "blueguardian-1ce8d",
+      storageBucket: "blueguardian-1ce8d.appspot.com",
+      messagingSenderId: "30239727158",
+      appId: "1:30239727158:web:7fb22d8200e42ecfd04297",
+      measurementId: "G-E0C84BFFEC"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  
+
+
   const db = firebase.firestore();
 
   document.getElementById("report-form").addEventListener("submit", async function (e) {
@@ -58,3 +120,7 @@
     }
   });
 </script>
+
+
+</body>
+</html>
