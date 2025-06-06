@@ -2,25 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>BlueGuardian</title>
+  <title>🌊 BlueGuardian - Save Our Oceans</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #e0f7fa;
+    }
+
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center;
+      background-size: cover;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 6px #000;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    .btn {
+      background: #00b4d8;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1rem;
+      border-radius: 30px;
+      margin-top: 30px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #0096c7;
+    }
+
+    footer {
+      background: #023e8a;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
+
   <header>
-    <h1>🌊 BlueGuardian</h1>
-    <p>Track | Learn | Report Marine Pollution</p>
+    <div class="logo"><strong>🌊 BlueGuardian</strong></div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="report.html">Report</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="#">About</a>
+    </nav>
   </header>
 
-  <main>
-    <a href="learn.html" class="btn">📚 Learn About Pollution</a>
-    <a href="report.html" class="btn">📸 Report Pollution</a>
-    <a href="map.html" class="btn">🗺️ View Pollution Map</a>
-    <a href="reports.html" class="btn">📊 View Reports</a>
-
-  </main>
+  <section class="hero">
+    <h1>Protect the Ocean</h1>
+    <p>Report marine pollution. Track global data. Act before it’s too late.</p>
+    <a class="btn" href="report.html">📸 Report Pollution</a>
+  </section>
 
   <footer>
-    <p>&copy; 2025 BlueGuardian Team</p>
+    &copy; 2025 BlueGuardian | Built for Hackathons 🌍
   </footer>
+
 </body>
 </html>
