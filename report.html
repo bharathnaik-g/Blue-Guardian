@@ -40,49 +40,48 @@
     <p>&copy; 2025 BlueGuardian Team</p>
   </footer>
 
+  <!-- ✅ Firebase Scripts First -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <!-- ✅ Your Custom Script -->
   <script>
-    document.getElementById('report-form').addEventListener('submit', function(e) {
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1954mCYtwiBaIQVvFpof9H3orCpuH820",
+      authDomain: "blueguardian-1ce8d.firebaseapp.com",
+      projectId: "blueguardian-1ce8d",
+      storageBucket: "blueguardian-1ce8d.appspot.com",
+      messagingSenderId: "30239727158",
+      appId: "1:30239727158:web:7fb22d8200e42ecfd04297",
+      measurementId: "G-E0C84BFFEC"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Handle form submission
+    document.getElementById("report-form").addEventListener("submit", async function (e) {
       e.preventDefault();
-      alert("Report submitted! (Data handling coming soon)");
+
+      const name = document.getElementById("name").value;
+      const location = document.getElementById("location").value;
+      const type = document.getElementById("type").value;
+
+      try {
+        await db.collection("reports").add({
+          name,
+          location,
+          type,
+          timestamp: new Date()
+        });
+        alert("✅ Report submitted successfully!");
+        document.getElementById("report-form").reset();
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        alert("❌ Submission failed: " + error.message);
+      }
     });
   </script>
 </body>
 </html>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyA1954mCYtwiBaIQVvFpof9H3orCpuH820",
-    authDomain: "blueguardian-1ce8d.firebaseapp.com",
-    projectId: "blueguardian-1ce8d",
-    storageBucket: "blueguardian-1ce8d.firebasestorage.app",
-    messagingSenderId: "30239727158",
-    appId: "1:30239727158:web:7fb22d8200e42ecfd04297",
-    measurementId: "G-E0C84BFFEC"
-  };
-
-const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  document.getElementById("report-form").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const name = document.getElementById("name").value;
-    const location = document.getElementById("location").value;
-    const type = document.getElementById("type").value;
-
-    try {
-      await addDoc(collection(db, "reports"), {
-        name,
-        location,
-        type,
-        timestamp: new Date()
-      });
-      alert("Report submitted successfully!");
-      document.getElementById("report-form").reset();
-    } catch (error) {
-      alert("Error submitting report: " + error.message);
-    }
-  });
-</script>
