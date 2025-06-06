@@ -1,101 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Report Pollution - BlueGuardian</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>📸 Report Marine Pollution</h1>
-  </header>
-
-  <main>
-    <form id="report-form">
-      <label for="name">Your Name:</label><br>
-      <input type="text" id="name" name="name" required><br><br>
-
-      <label for="location">Location:</label><br>
-      <input type="text" id="location" name="location" placeholder="Beach, Port..." required><br><br>
-
-      <label for="type">Type of Pollution:</label><br>
-      <select id="type" name="type" required>
-        <option value="">--Select--</option>
-        <option value="Plastic Waste">Plastic Waste</option>
-        <option value="Oil Spill">Oil Spill</option>
-        <option value="Chemical Waste">Chemical Waste</option>
-        <option value="Other">Other</option>
-      </select><br><br>
-
-      <label for="image">Upload Image:</label><br>
-      <input type="file" id="image" name="image"><br><br>
-
-      <button type="submit" class="btn">🚀 Submit Report</button>
-    </form>
-
-    <a href="index.html" class="btn">🔙 Back to Home</a>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 BlueGuardian Team</p>
-  </footer>
-
-  <!-- ✅ Firebase Scripts First -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-
-  <!-- ✅ Your Custom Script -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyA1954mCYtwiBaIQVvFpof9H3orCpuH820",
-      authDomain: "blueguardian-1ce8d.firebaseapp.com",
-      projectId: "blueguardian-1ce8d",
-      storageBucket: "blueguardian-1ce8d.appspot.com",
-      messagingSenderId: "30239727158",
-      appId: "1:30239727158:web:7fb22d8200e42ecfd04297",
-      measurementId: "G-E0C84BFFEC"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-  
-
+<script>
   const db = firebase.firestore();
 
   document.getElementById("report-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const location = document.getElementById("location").value;
+    const name = document.getElementById("name").value.trim();
+    const location = document.getElementById("location").value.trim();
     const type = document.getElementById("type").value;
 
+    if (!name || !location || !type) {
+      alert("Please fill all required fields!");
+      return;
+    }
+
     try {
-      // Call Nominatim API to get lat/lng
+      // Get geolocation from Nominatim
       const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`);
       const data = await response.json();
 
       if (data.length === 0) {
-        alert("Location not found! Please enter a valid location.");
+        alert("Location not found! Please enter a valid place.");
         return;
       }
 
-      const placeClass = data[0].class; // e.g. 'place', 'water', 'boundary', etc.
-      // Simple filter for reasonable location types
-      if (!["place", "boundary", "water", "landuse"].includes(placeClass)) {
-        alert("Location seems invalid. Please enter a proper place name.");
+      const result = data[0];
+      const placeClass = result.class || ""; // fallback if undefined
+
+      // Filter only if class is present
+      if (placeClass && !["place", "boundary", "water", "landuse"].includes(placeClass)) {
+        alert(`Location type "${placeClass}" is not supported. Try a more known place.`);
         return;
       }
 
-      const displayName = data[0].display_name;
-      const lat = parseFloat(data[0].lat);
-      const lon = parseFloat(data[0].lon);
+      const displayName = result.display_name;
+      const lat = parseFloat(result.lat);
+      const lon = parseFloat(result.lon);
 
-      // Confirm with user
       const confirmResult = confirm(`Did you mean:\n${displayName} ?`);
-      if (!confirmResult) {
-        return; // User rejected, allow editing location
-      }
+      if (!confirmResult) return;
 
+      // Save to Firebase
       await db.collection("reports").add({
         name,
         location,
@@ -105,15 +49,12 @@
         timestamp: new Date()
       });
 
-      alert("✅ Report submitted successfully with location!");
+      alert("✅ Report submitted successfully!");
       document.getElementById("report-form").reset();
 
     } catch (error) {
-      console.error("Error adding document: ", error);
-      alert("❌ Submission failed: " + error.message);
+      console.error("Error:", error);
+      alert("❌ Something went wrong: " + error.message);
     }
   });
 </script>
-
-</body>
-</html>
