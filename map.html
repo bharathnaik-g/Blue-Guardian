@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pollution Map - BlueGuardian</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+  
+  <style>
+    #map {
+      height: 500px;
+      width: 90%;
+      margin: 20px auto;
+      border: 2px solid #00796b;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🗺️ Pollution Map</h1>
+  </header>
+
+  <main>
+    <div id="map"></div>
+    <p style="text-align:center;">Click on the map to add pollution marker</p>
+    <a href="index.html" class="btn">🔙 Back to Home</a>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BlueGuardian Team</p>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet/dist/leaflet.js"
+  ></script>
+
+  <script>
+    // Initialize the map
+    const map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India
+
+    // Load map tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    // Add marker on click
+    map.on('click', function (e) {
+      const lat = e.latlng.lat.toFixed(4);
+      const lng = e.latlng.lng.toFixed(4);
+      L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(`Pollution reported at:<br>📍 ${lat}, ${lng}`)
+        .openPopup();
+    });
+  </script>
+</body>
+</html>
