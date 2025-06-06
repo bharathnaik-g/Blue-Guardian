@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Pollution - BlueGuardian</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>📸 Report Marine Pollution</h1>
+  </header>
+
+  <main>
+    <form id="report-form">
+      <label for="name">Your Name:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="location">Location:</label><br>
+      <input type="text" id="location" name="location" placeholder="Beach, Port..." required><br><br>
+
+      <label for="type">Type of Pollution:</label><br>
+      <select id="type" name="type" required>
+        <option value="">--Select--</option>
+        <option value="Plastic Waste">Plastic Waste</option>
+        <option value="Oil Spill">Oil Spill</option>
+        <option value="Chemical Waste">Chemical Waste</option>
+        <option value="Other">Other</option>
+      </select><br><br>
+
+      <label for="image">Upload Image:</label><br>
+      <input type="file" id="image" name="image"><br><br>
+
+      <button type="submit" class="btn">🚀 Submit Report</button>
+    </form>
+
+    <a href="index.html" class="btn">🔙 Back to Home</a>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BlueGuardian Team</p>
+  </footer>
+
+  <script>
+    document.getElementById('report-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("Report submitted! (Data handling coming soon)");
+    });
+  </script>
+</body>
+</html>
