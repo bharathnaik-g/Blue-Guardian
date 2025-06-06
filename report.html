@@ -59,6 +59,7 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   
+
   const db = firebase.firestore();
 
   document.getElementById("report-form").addEventListener("submit", async function (e) {
@@ -78,8 +79,22 @@
         return;
       }
 
+      const placeClass = data[0].class; // e.g. 'place', 'water', 'boundary', etc.
+      // Simple filter for reasonable location types
+      if (!["place", "boundary", "water", "landuse"].includes(placeClass)) {
+        alert("Location seems invalid. Please enter a proper place name.");
+        return;
+      }
+
+      const displayName = data[0].display_name;
       const lat = parseFloat(data[0].lat);
       const lon = parseFloat(data[0].lon);
+
+      // Confirm with user
+      const confirmResult = confirm(`Did you mean:\n${displayName} ?`);
+      if (!confirmResult) {
+        return; // User rejected, allow editing location
+      }
 
       await db.collection("reports").add({
         name,
