@@ -43,3 +43,46 @@ nav a {
   margin-top: 1em;
   border-radius: 10px;
 }
+.impact-gallery {
+  margin: 2em;
+  padding: 1em;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.carousel {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  animation: scroll 20s linear infinite;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 300px;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.carousel-item img {
+  width: 100%;
+  border-radius: 10px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.carousel-item p {
+  font-size: 0.9em;
+  margin-top: 0.5em;
+  color: #003049;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
