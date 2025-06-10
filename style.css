@@ -1,58 +1,45 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #e0f7fa;
-  color: #004d40;
-  text-align: center;
   margin: 0;
-  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0faff;
+  color: #003049;
 }
 
 header {
-  background-color: #00695c;
+  background: #003049;
   color: white;
-  padding: 1em;
+  padding: 1em 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-main {
-  margin-top: 2em;
-}
-
-.btn {
-  display: block;
-  margin: 1em auto;
-  padding: 1em;
-  background-color: #00acc1;
+nav a {
   color: white;
+  margin: 0 1em;
   text-decoration: none;
-  width: 60%;
-  max-width: 300px;
-  border-radius: 8px;
-  font-size: 1.2em;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #004d40;
-  color: white;
-  padding: 0.5em;
+.hero {
+  text-align: center;
+  padding: 2em;
+  background: #d0f0ff;
 }
-form {
-  background-color: #ffffffbb;
-  padding: 20px;
-  margin: 20px auto;
-  width: 80%;
-  max-width: 400px;
+
+.upload-box {
+  margin-top: 1em;
+}
+
+.map-section {
+  margin: 2em;
+  padding: 1em;
+  background: white;
   border-radius: 10px;
-  box-shadow: 0 0 10px #aaa;
-  text-align: left;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+#map {
+  height: 400px;
+  margin-top: 1em;
+  border-radius: 10px;
 }
